@@ -1,0 +1,35 @@
+db_path: data/procurement.db
+reminders:
+  delivery_due_days: 7
+  goods_to_invoice_days: 7
+  invoice_to_payment_days: 7
+  qualification_expiry_days: 30
+  contract_expiry_days: 30
+scoring:
+  weights:
+    quality: 0.30
+    cost: 0.25
+    delivery: 0.30
+    service: 0.15
+  grade_thresholds:
+    S: 90
+    A: 80
+    B: 70
+    C: 0
+currency:
+  base: CNY
+notifications:
+  enabled: false
+  webhook_url: ""
+  channel: dingtalk
+  daily_time: "09:00"
+  timezone: Asia/Shanghai
+ai:
+  enabled: false
+  provider: ""
+  api_key: ""
+  model: ""
+  base_url: ""
+
+quotes:
+  min_suppliers: 3

@@ -1,0 +1,23 @@
+# 本地业务数据与SQLite临时文件
+*.db
+*.db-*
+*.sqlite
+*.sqlite3
+*.sqlite-*
+*.sqlite3-*
+data/*
+!data/.gitkeep
+
+# Python环境与缓存
+.venv/
+.venv*/
+venv/
+__pycache__/
+*.py[cod]
+.pytest_cache/
+
+# 本地密钥与系统文件
+.env
+.env.*
+.streamlit/secrets.toml
+.DS_Store
