@@ -1,0 +1,28 @@
+services:
+- type: web
+  name: procurement-desk
+  runtime: docker
+  plan: 0.5c-512mb
+  numInstances: 1
+  healthCheckPath: /_stcore/health
+  disk:
+    name: procurement-data
+    mountPath: /data
+    sizeGB: 1
+  envVars:
+  - key: PDESK_DB_PATH
+    value: /data/procurement.db
+  - key: PDESK_CONFIG_PATH
+    value: /data/config.yaml
+  - key: TZ
+    value: Asia/Shanghai
+  - key: PDESK_LOGIN_USER
+    sync: false
+  - key: PDESK_PASSWORD_HASH
+    sync: false
+  repo: https://github.com/jp5708356-rgbJoshua/all-right
+  branch: procurement-cloud
+  region: singapore
+  autoDeployTrigger: 'off'
+  dockerfilePath: ./Dockerfile
+  dockerContext: .

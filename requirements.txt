@@ -1,2 +1,14 @@
-streamlit>=1.50,<2
-PyYAML>=6,<7
+# 第 1 轮起必需
+streamlit>=1.36
+pandas>=2.0
+PyYAML>=6.0
+
+# 第 3 轮起（报价文件导入）
+openpyxl>=3.1
+
+# 第 6 轮起（消息推送）
+requests>=2.31
+
+# 第 7 轮起（合同文本抽取）
+python-docx>=1.1
+pypdf>=4.0

@@ -1,0 +1,33 @@
+name: Full procurement container acceptance
+on:
+  push:
+    branches: [procurement-cloud]
+  workflow_dispatch:
+permissions:
+  contents: read
+jobs:
+  container:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 20
+    steps:
+      - name: Fetch deployment branch
+        run: git clone --depth 1 --branch procurement-cloud https://github.com/jp5708356-rgbJoshua/all-right.git source
+      - name: Install locked runtime dependencies
+        working-directory: source
+        run: |
+          python3 -m venv .ci
+          .ci/bin/pip install -r requirements.lock.txt
+      - name: Test business logic and authentication
+        working-directory: source
+        run: |
+          .ci/bin/python tests/verify.py
+          .ci/bin/python tests/test_upgrade.py
+          .ci/bin/python tests/test_table_import.py
+          .ci/bin/python tests/test_followups.py
+          .ci/bin/python tests/test_workflows.py
+          .ci/bin/python tests/test_daily_summary.py
+          .ci/bin/python tests/acceptance_local.py
+          .ci/bin/python tests/test_deployment.py
+      - name: Build Docker and test persistence, WebSocket and restore
+        working-directory: source
+        run: .ci/bin/python scripts/test_container.py
