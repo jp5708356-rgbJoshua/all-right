@@ -1,0 +1,50 @@
+# 个人采购工作台 · 全局配置
+# 权重 / 阈值 / 提醒天数 / Webhook 全部在这里改，代码里不写死。
+
+app:
+  name: 个人采购工作台
+  db_path: data/procurement.db
+  page_size: 50
+
+# 供应商评分卡（第 5 轮启用）
+scorecard:
+  weights:
+    quality: 0.30
+    cost: 0.25
+    delivery: 0.30
+    service: 0.15
+  grades:
+    S: 90
+    A: 80
+    B: 70
+  # 服务维度人工分，格式 {供应商id: 0-100}；留空则按剩余权重归一化
+  service_manual: {}
+
+# 提醒天数（仪表盘与到期检查共用）
+reminders:
+  delivery_due_days: 7          # 交期临近预警
+  goods_to_invoice_days: 7      # 货到超 N 天未收票
+  invoice_to_payment_days: 7    # 票到超 N 天未付款
+  qualification_days: 30        # 供应商资质到期前 N 天
+  contract_days: 30             # 合同到期前 N 天
+  price_valid_days: 30          # 价格有效期到期前 N 天
+
+# 消息推送（第 6 轮启用，默认关闭）
+push:
+  enabled: false
+  channel: dingtalk             # dingtalk | wecom
+  webhook_url: ""               # 不写死在代码里，只从本文件读
+  daily_time: "09:00"
+  max_orders_per_section: 10
+  max_chars: 1800
+
+# 多币种（第 8 轮启用）
+fx:
+  base_currency: CNY
+
+# AI 报价导入（第 9 轮，可选）
+ai_import:
+  enabled: false
+  base_url: ""
+  model: ""
+  api_key_env: OPENAI_API_KEY   # 只读环境变量，不落配置文件
